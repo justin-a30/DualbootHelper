@@ -25,6 +25,8 @@
     <string name="emmc_mmcblk0">Девайс використовує EMMC (mmcblk0)</string>
     <string name="sudo_access">Будь ласка, дайте права суперкористувача для збирання інформації про телефон</string>
     <string name="sudo_access_title">Нема доступу до прав суперкортисувача, або ви не рутовані.</string>
+    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
+    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
     <!-- Quick action layout strings -->
     <string name="qact">Швидка дія</string>
     <string name="slota_qact">Дії до слота А</string>

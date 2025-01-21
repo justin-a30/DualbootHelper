@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Basic title and desc -->
-    <string name="customizename">Customize slot\'s name</string>
+    <string name="customizename">تخصيص إسم الفتحة</string>
     <string name="description">تطبيق مساعد للحل المزدوج للتمهيد</string>
     <string name="settings">الإعدادات</string>
     <string name="about">حول هذا التطبيق</string>
@@ -25,6 +25,8 @@
     <string name="emmc_mmcblk0">الجهاز يستخدم EMMC (mmcblk0)</string>
     <string name="sudo_access">يرجى منح المستخدم الخارق حق الوصول لجمع المعلومات حول الجهاز</string>
     <string name="sudo_access_title">لا يوجد وصولSU، أو لم تقم بعمل روت حتى الآن؟ :(</string>
+    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
+    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
     <!-- Quick action layout strings -->
     <string name="qact">إجراء سريع</string>
     <string name="slota_qact">إجراءات الفتحة A</string>
@@ -70,8 +72,8 @@
     <!-- Preferences strings-->
     <string name="slota_settings">اسم الفتحة A</string>
     <string name="slotb_settings">اسم الفتحة B</string>
-    <string name="add_db_options_to_twrp">Use custom Dualboot TWRP</string>
-    <string name="twrp_desc">Requires TWRP 3.5+ and disabled data encryption</string>
-    <string name="general">General</string>
-    <string name="rec_options">Recovery options</string>
+    <string name="add_db_options_to_twrp">استخدام TWRP ثنائي التمهيد مخصص</string>
+    <string name="twrp_desc">يتطلب TWRP 3.5+ وتعطيل تشفير البيانات</string>
+    <string name="general">عام</string>
+    <string name="rec_options">خيارات الاسترداد</string>
 </resources>

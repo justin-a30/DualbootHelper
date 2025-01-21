@@ -1,63 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="description">A helper app for dualbooting solution</string>
-  <string name="customizename">Customizează numele sloturilor</string>
-  <string name="info" comment="info Information layout strings">Informații</string>
-  <string name="dbinf" comment="dbinf Placeholder info strings">Status</string>
-  <string name="slota_os">OS pe Slotul A</string>
-  <string name="slotb_os">OS pe Slotul B</string>
-  <string name="qact" comment="qact Quick action layout strings">Quick action</string>
-  <string name="reboot_a" comment="reboot_a Buttons strings">Restartare în Slotul A</string>
-  <string name="reboot_b">Restartare în Slotul B</string>
-  <string name="recovery_a">Restartare în Recovery pe Slotul A</string>
-  <string name="recovery_b">Restartare în Recovery pe Slotul B</string>
-  <string name="dl_mode">Restartare în Download mode</string>
-  <string name="poweroff">Oprește systemul</string>
-  <string name="dialog_confirm">Ești sigur?</string>
-  <string name="dialog_yes">Da</string>
-  <string name="dialog_no">Nu</string>
-  <string name="db_dev" comment="db_dev About strings Team DB">Developerii aplicației</string>
-  <string name="david_desc" comment="david_desc Our descriptions">Fondatorul Dualboot pentru Samsung</string>
-  <string name="bob_desc">A făcut aplicația în stil OneUi</string>
-  <string name="ouip_team" comment="ouip_team Team OUIP">Echipa proiectului OneUi</string>
-  <string name="os_lic" comment="os_lic License strings">Licențele Open Source</string>
-  <string name="gnu_lic">Licența GNU</string>
-  <string name="apache_lic">Licența Apache 2.0</string>
-  <string name="mit_lic">Licența MIT</string>
-  <string name="links" comment="links Links strings">linkuri folositoare</string>
-  <string name="donate">Doneaza-mi!</string>
-  <string name="xda_post">postarea XDA</string>
-  <string name="reboot_wait">În curs de restartare, Te rog așteaptă...</string>
-  <string name="not_installed" comment="not_installed Collected info strings">Nu este instalat</string>
-  <string name="installed_v5">Instalat (V5)</string>
-  <string name="installed_v4">Instalat (V4)</string>
-  <string name="unavailable">Nevalabil</string>
-  <string name="super_partition">Dispozitivul folosește partiție de tip super</string>
-  <string name="normal_naming">Dispozitivul folosește partiții normale</string>
-  <string name="caps_naming">Dispozitivul folosește partiții cu nume in caps</string>
-  <string name="ufs_sda">Dispozitivul folosește UFS (sda)</string>
-  <string name="emmc_sdc">Dispozitivul folosește EMMC (sdc)</string>
-  <string name="sudo_access">Te rog acordă acces de superutilizator pentru a putea extrage informații despre dispozitiv</string>
-  <string name="emmc_mmcblk0">Dispozitivul folosește EMMC (mmcblk0)</string>
-  <string name="settings">Setări</string>
-  <string name="about">Despre aplicație</string>
-  <string name="translation">Ajută-ne să traducem aplicația!</string>
-  <string name="sudo_access_title">Fară acces de superutilizator, ești sigur că ai root?:(</string>
-  <string name="slota_qact">Acțiuni în Slotul A</string>
-  <string name="slota_description">Acțiuni valabile în Slotul A</string>
-  <string name="slotb_qact">Acțiuni în Slotul B</string>
-  <string name="slotb_description">Acțiuni valabile în Slotul B</string>
-  <string name="slota_placeholder">Reboot to slot A, Recovery A</string>
-  <string name="slotb_placeholder">Reboot to slot B, Recovery B</string>
-  <string name="misc_qact">Alte acțiuni</string>
-  <string name="misc_description">Misc actions available</string>
-  <string name="misc_placeholder">Reboot to Download Mode, Power off system</string>
-  <string name="dialog_confirm_title" comment="dialog_confirm_title Dialog strings">Confirmation</string>
-  <string name="dialog_ok">OK</string>
-  <string name="slota_settings" comment="slota_settings Preferences strings">Numele Slotului A</string>
-  <string name="slotb_settings">Numele Slotului B</string>
-  <string name="add_db_options_to_twrp">Folosește TWRP special pentru Dualboot</string>
-  <string name="twrp_desc">Necesită TWRP 3.5+ și encripția fișierelor dezactivată</string>
-  <string name="general">General</string>
-  <string name="rec_options">Opțiuni pentru Recovery</string>
+    <!-- Basic title and desc -->
+    <string name="customizename">Customizează numele sloturilor</string>
+    <string name="description">A helper app for dualbooting solution</string>
+    <string name="settings">Setări</string>
+    <string name="about">Despre aplicație</string>
+    <string name="translation">Ajută-ne să traducem aplicația!</string>
+    <!-- Information layout strings -->
+    <string name="info">Informații</string>
+    <!-- Placeholder info strings -->
+    <string name="dbinf">Status</string>
+    <string name="slota_os">OS pe Slotul A</string>
+    <string name="slotb_os">OS pe Slotul B</string>
+    <!-- Collected info strings -->
+    <string name="not_installed">Nu este instalat</string>
+    <string name="installed_v5">Instalat (V5)</string>
+    <string name="installed_v4">Instalat (V4)</string>
+    <string name="unavailable">Nevalabil</string>
+    <string name="super_partition">Dispozitivul folosește partiție de tip super</string>
+    <string name="normal_naming">Dispozitivul folosește partiții normale</string>
+    <string name="caps_naming">Dispozitivul folosește partiții cu nume in caps</string>
+    <string name="ufs_sda">Dispozitivul folosește UFS (sda)</string>
+    <string name="emmc_sdc">Dispozitivul folosește EMMC (sdc)</string>
+    <string name="emmc_mmcblk0">Dispozitivul folosește EMMC (mmcblk0)</string>
+    <string name="sudo_access">Te rog acordă acces de superutilizator pentru a putea extrage informații despre dispozitiv</string>
+    <string name="sudo_access_title">Fară acces de superutilizator, ești sigur că ai root?:(</string>
+    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
+    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
+    <!-- Quick action layout strings -->
+    <string name="qact">Quick action</string>
+    <string name="slota_qact">Acțiuni în Slotul A</string>
+    <string name="slota_description">Acțiuni valabile în Slotul A</string>
+    <string name="slotb_qact">Acțiuni în Slotul B</string>
+    <string name="slotb_description">Acțiuni valabile în Slotul B</string>
+    <string name="slota_placeholder">Reboot to slot A, Recovery A</string>
+    <string name="slotb_placeholder">Reboot to slot B, Recovery B</string>
+    <string name="misc_qact">Alte acțiuni</string>
+    <string name="misc_description">Misc actions available</string>
+    <string name="misc_placeholder">Reboot to Download Mode, Power off system</string>
+    <!-- Buttons strings -->
+    <string name="reboot_a">Restartare în Slotul A</string>
+    <string name="reboot_b">Restartare în Slotul B</string>
+    <string name="recovery_a">Restartare în Recovery pe Slotul A</string>
+    <string name="recovery_b">Restartare în Recovery pe Slotul B</string>
+    <string name="dl_mode">Restartare în Download mode</string>
+    <string name="poweroff">Oprește systemul</string>
+    <!-- Dialog strings -->
+    <string name="dialog_confirm_title">Confirmation</string>
+    <string name="dialog_confirm">Ești sigur?</string>
+    <string name="dialog_yes">Da</string>
+    <string name="dialog_no">Nu</string>
+    <string name="dialog_ok">OK</string>
+    <string name="reboot_wait">În curs de restartare, Te rog așteaptă...</string>
+    <!-- About strings -->
+    <!-- Team DB -->
+    <string name="db_dev">Developerii aplicației</string>
+    <!-- Our descriptions -->
+    <string name="david_desc">Fondatorul Dualboot pentru Samsung</string>
+    <string name="bob_desc">A făcut aplicația în stil OneUi</string>
+    <!-- Team OUIP -->
+    <string name="ouip_team">Echipa proiectului OneUi</string>
+    <!-- License strings -->
+    <string name="os_lic">Licențele Open Source</string>
+    <string name="gnu_lic">Licența GNU</string>
+    <string name="apache_lic">Licența Apache 2.0</string>
+    <string name="mit_lic">Licența MIT</string>
+    <!-- Links strings-->
+    <string name="links">linkuri folositoare</string>
+    <string name="donate">Doneaza-mi!</string>
+    <string name="xda_post">postarea XDA</string>
+    <!-- Preferences strings-->
+    <string name="slota_settings">Numele Slotului A</string>
+    <string name="slotb_settings">Numele Slotului B</string>
+    <string name="add_db_options_to_twrp">Folosește TWRP special pentru Dualboot</string>
+    <string name="twrp_desc">Necesită TWRP 3.5+ și encripția fișierelor dezactivată</string>
+    <string name="general">General</string>
+    <string name="rec_options">Opțiuni pentru Recovery</string>
 </resources>

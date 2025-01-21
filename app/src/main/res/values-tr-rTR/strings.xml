@@ -25,6 +25,8 @@
     <string name="emmc_mmcblk0">Cihaz EMMC kullanıyor (mmcblk0)</string>
     <string name="sudo_access">Lütfen cihaz hakkında bilgi verebilmemiz için süper kullanıcı haklarına izin veriniz</string>
     <string name="sudo_access_title">Süper kullanıcı izni yok, veya henüz kök haklarına değil misiniz? :(</string>
+    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
+    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
     <!-- Quick action layout strings -->
     <string name="qact">Hızlı işlem</string>
     <string name="slota_qact">A Bölümü işlemleri</string>

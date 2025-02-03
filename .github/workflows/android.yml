@@ -2,10 +2,10 @@ name: Android CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "long-fixes" ]
 
   pull_request:
-    branches: [ "main" ]
+    branches: [ "long-fixes" ]
 
 jobs:
   build:

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- a boolean to determine status bar icons color
+    true on light mode - status bar icons are black
+    false on dark mode - status bar icons are white
+    -->
+    <bool name="isLightStatusNav">true</bool>
+</resources>

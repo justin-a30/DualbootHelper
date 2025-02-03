@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
         // Update slot cards to reflect any changes
@@ -64,12 +64,8 @@ public class MainActivity extends AppCompatActivity {
         private static boolean isRootAvailable = false;
 
         public static boolean isRootAvailable() {
-            return isRootAvailable;
-        }
-
-        public static void checkRoot() {
-            // Check for root access
             isRootAvailable = checkForRoot();
+            return isRootAvailable;
         }
 
         private static boolean checkForRoot() {
@@ -95,33 +91,35 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
-        CardView slotCardView = findViewById(cardViewId);
-        if (slotCardView != null) {
-            String slotValue;
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
+        runOnUiThread(() -> {
+            CardView slotCardView = findViewById(cardViewId);
+            if (slotCardView != null) {
+                String slotValue;
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
 
-            if (isCustomizeSlotNameOn) {
-                slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
-            } else {
-                File file = new File(filePath);
-                if (file.exists()) {
-                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                        slotValue = reader.readLine();
-                        if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                if (isCustomizeSlotNameOn) {
+                    slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
+                } else {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                            slotValue = reader.readLine();
+                            if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                                slotValue = getString(R.string.unavailable);
+                            }
+                        } catch (IOException e) {
+                            Log.e("MainActivity", "Error reading file: " + filePath, e);
                             slotValue = getString(R.string.unavailable);
                         }
-                    } catch (IOException e) {
-                        Log.e("MainActivity", "Error reading file: " + filePath, e);
+                    } else {
                         slotValue = getString(R.string.unavailable);
                     }
-                } else {
-                    slotValue = getString(R.string.unavailable);
                 }
-            }
 
-            slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
-        }
+                slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
+            }
+        });
     }
     private static String getStatusFilePath(Context context) {
         return new File(context.getFilesDir(), "status.txt").getPath();
@@ -148,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         mLoadingDialog.setCancelable(false);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
-        RootChecker.checkRoot();
             // Check root
                 if (RootChecker.isRootAvailable()) {
                     Shell.getShell(shell -> {});

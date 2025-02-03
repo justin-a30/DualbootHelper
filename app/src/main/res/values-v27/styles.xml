@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DualBootHelper.Theme" parent="@style/OneUITheme">
+        <item name="android:windowLightStatusBar">@bool/isLightStatusNav</item>
+        <item name="android:windowLightNavigationBar">@bool/isLightStatusNav</item>
+    </style>
+</resources>

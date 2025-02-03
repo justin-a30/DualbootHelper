@@ -91,33 +91,35 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
-        CardView slotCardView = findViewById(cardViewId);
-        if (slotCardView != null) {
-            String slotValue;
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
+        runOnUiThread(() -> {
+            CardView slotCardView = findViewById(cardViewId);
+            if (slotCardView != null) {
+                String slotValue;
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
 
-            if (isCustomizeSlotNameOn) {
-                slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
-            } else {
-                File file = new File(filePath);
-                if (file.exists()) {
-                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                        slotValue = reader.readLine();
-                        if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                if (isCustomizeSlotNameOn) {
+                    slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
+                } else {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                            slotValue = reader.readLine();
+                            if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                                slotValue = getString(R.string.unavailable);
+                            }
+                        } catch (IOException e) {
+                            Log.e("MainActivity", "Error reading file: " + filePath, e);
                             slotValue = getString(R.string.unavailable);
                         }
-                    } catch (IOException e) {
-                        Log.e("MainActivity", "Error reading file: " + filePath, e);
+                    } else {
                         slotValue = getString(R.string.unavailable);
                     }
-                } else {
-                    slotValue = getString(R.string.unavailable);
                 }
-            }
 
-            slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
-        }
+                slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
+            }
+        });
     }
     private static String getStatusFilePath(Context context) {
         return new File(context.getFilesDir(), "status.txt").getPath();

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="DatePickerTheme" parent="@style/Widget.AppCompat.Light.DatePicker" />
-    <style name="BottomNavViewTextMode" parent="Widget.Design.Light.BottomNavigationView.Text" />
-    <style name="DualbootHelper.SplashTheme" parent="@style/OneUITheme">
+    <style name="DualBootHelper.Theme" parent="@style/OneUITheme">
         <item name="android:windowSplashScreenBackground">@color/oui_background_color</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/launcher_start</item>
         <item name="android:windowSplashScreenAnimationDuration">1000</item>

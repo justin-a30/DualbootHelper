@@ -25,7 +25,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.david42069.dualboothelper.databinding.ActivityAboutBinding;
 import com.david42069.dualboothelper.databinding.ActivityAboutContentBinding;
 
-import dev.oneuiproject.oneui.layout.ToolbarLayout;
 import dev.oneuiproject.oneui.utils.ViewUtils;
 import dev.oneuiproject.oneui.utils.internal.ToolbarLayoutUtils;
 import dev.oneuiproject.oneui.widget.Toast;

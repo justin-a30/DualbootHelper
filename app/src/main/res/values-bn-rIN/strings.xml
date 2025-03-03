@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic title and desc -->
+    <string name="customizename">Customize slot\'s name</string>
+    <string name="description">A helper app for dualbooting solution</string>
+    <string name="settings">Settings</string>
+    <string name="about">About this app</string>
+    <string name="translation">Help us translate the app!</string>
+    <!-- Information layout strings -->
+    <string name="info">Information</string>
+    <!-- Placeholder info strings -->
+    <string name="dbinf">Status</string>
+    <string name="slota_os">OS on Slot A</string>
+    <string name="slotb_os">OS on Slot B</string>
+    <!-- Collected info strings -->
+    <string name="not_installed">Not installed</string>
+    <string name="installed_v5">Installed (V5)</string>
+    <string name="installed_v4">Installed (V4)</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="super_partition">Device uses super partition</string>
+    <string name="normal_naming">Device uses normal naming partitions</string>
+    <string name="caps_naming">Device uses caps naming partitions</string>
+    <string name="ufs_sda">Device uses UFS (sda)</string>
+    <string name="emmc_sdc">Device uses EMMC (sdc)</string>
+    <string name="emmc_mmcblk0">Device uses EMMC (mmcblk0)</string>
+    <string name="sudo_access">Please grant superuser access to gather info about the device</string>
+    <string name="sudo_access_title">No SU access, or you haven\'t rooted, yet? :(</string>
+    <!-- Quick action layout strings -->
+    <string name="qact">Quick action</string>
+    <string name="slota_qact">Slot A actions</string>
+    <string name="slota_description">Actions available on slot A</string>
+    <string name="slotb_qact">Slot B actions</string>
+    <string name="slotb_description">Actions available on slot B</string>
+    <string name="slota_placeholder">Reboot to slot A, Recovery A</string>
+    <string name="slotb_placeholder">Reboot to slot B, Recovery B</string>
+    <string name="misc_qact">Misc actions</string>
+    <string name="misc_description">Misc actions available</string>
+    <string name="misc_placeholder">Reboot to Download Mode, Power off system</string>
+    <!-- Buttons strings -->
+    <string name="reboot_a">Reboot to Slot A</string>
+    <string name="reboot_b">Reboot to Slot B</string>
+    <string name="recovery_a">Reboot to Recovery slot A</string>
+    <string name="recovery_b">Reboot to Recovery slot B</string>
+    <string name="dl_mode">Reboot to Download mode</string>
+    <string name="poweroff">Shut Down the system</string>
+    <!-- Dialog strings -->
+    <string name="dialog_confirm_title">Confirmation</string>
+    <string name="dialog_confirm">Are you sure?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_ok">OK</string>
+    <string name="reboot_wait">Rebooting. Please wait...</string>
+    <!-- About strings -->
+    <!-- Team DB -->
+    <string name="db_dev">Main developers</string>
+    <!-- Our descriptions -->
+    <string name="david_desc">The founder of Dualboot for Samsung</string>
+    <string name="bob_desc">Made this app with OneUI Style</string>
+    <!-- Team OUIP -->
+    <string name="ouip_team">OneUI Project Team</string>
+    <!-- License strings -->
+    <string name="os_lic">Open source licenses</string>
+    <string name="gnu_lic">GNU License</string>
+    <string name="apache_lic">Apache License 2.0</string>
+    <string name="mit_lic">MIT License</string>
+    <!-- Links strings-->
+    <string name="links">Useful links</string>
+    <string name="donate">Donate me!</string>
+    <string name="xda_post">XDA post</string>
+    <!-- Preferences strings-->
+    <string name="slota_settings">Slot A name</string>
+    <string name="slotb_settings">Slot B name</string>
+    <string name="add_db_options_to_twrp">Use custom Dualboot TWRP</string>
+    <string name="twrp_desc">Requires TWRP 3.5+ and disabled data encryption</string>
+    <string name="general">General</string>
+    <string name="rec_options">Recovery options</string>
+</resources>

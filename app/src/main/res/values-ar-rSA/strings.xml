@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Basic title and desc -->
-    <string name="customizename">Customize slot\'s name</string>
+    <string name="customizename">تخصيص إسم الفتحة</string>
     <string name="description">تطبيق مساعد للحل المزدوج للتمهيد</string>
     <string name="settings">الإعدادات</string>
     <string name="about">حول هذا التطبيق</string>
@@ -70,8 +70,8 @@
     <!-- Preferences strings-->
     <string name="slota_settings">اسم الفتحة A</string>
     <string name="slotb_settings">اسم الفتحة B</string>
-    <string name="add_db_options_to_twrp">Use custom Dualboot TWRP</string>
-    <string name="twrp_desc">Requires TWRP 3.5+ and disabled data encryption</string>
-    <string name="general">General</string>
-    <string name="rec_options">Recovery options</string>
+    <string name="add_db_options_to_twrp">استخدام TWRP ثنائي التمهيد مخصص</string>
+    <string name="twrp_desc">يتطلب TWRP 3.5+ وتعطيل تشفير البيانات</string>
+    <string name="general">عام</string>
+    <string name="rec_options">خيارات الاسترداد</string>
 </resources>

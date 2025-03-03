@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Basic title and desc -->
-    <string name="customizename">Customize slot\'s name</string>
+    <string name="customizename">Системийн нэрийг өөрчлөх</string>
     <string name="description">2 системийг удирдахад зориулсан APP</string>
     <string name="settings">Тохиргоо</string>
     <string name="about">Энэ APP-ийн тухай</string>

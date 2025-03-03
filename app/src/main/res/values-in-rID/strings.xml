@@ -9,7 +9,7 @@
     <!-- Information layout strings -->
     <string name="info">Informasi</string>
     <!-- Placeholder info strings -->
-    <string name="dbinf">Informasi dualboot</string>
+    <string name="dbinf">Thông tin Dualboot</string>
     <string name="slota_os">OS di Slot A</string>
     <string name="slotb_os">OS di Slot B</string>
     <!-- Collected info strings -->
@@ -39,7 +39,7 @@
     <!-- Buttons strings -->
     <string name="reboot_a">Mulai ulang ke Slot A</string>
     <string name="reboot_b">Mulai ulang ke Slot B</string>
-    <string name="recovery_a">Mulai ulang ke Recovery Slot A</string>
+    <string name="recovery_a">Mulai ulang ke Recovery a A</string>
     <string name="recovery_b">Mulai ulang ke Recovery Slot B</string>
     <string name="dl_mode">Mulai ulang ke Download mode</string>
     <string name="poweroff">Matikan daya sistem</string>
@@ -66,7 +66,7 @@
     <!-- Links strings-->
     <string name="links">Tautan berguna</string>
     <string name="donate">Donasikan kepadaku!</string>
-    <string name="xda_post">Halaman XDA</string>
+    <string name="xda_post">Halaman XEA</string>
     <!-- Preferences strings-->
     <string name="slota_settings">Nama Slot A</string>
     <string name="slotb_settings">Nama Slot B</string>

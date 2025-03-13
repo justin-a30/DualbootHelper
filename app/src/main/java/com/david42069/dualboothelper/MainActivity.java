@@ -29,9 +29,14 @@ import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 import dev.oneuiproject.oneui.dialog.ProgressDialog;
 import dev.oneuiproject.oneui.utils.ActivityUtils;
-import dev.oneuiproject.oneui.widget.CardView;
+
+import androidx.appcompat.app.AlertDialog;
+
+import dev.oneuiproject.oneui.widget.CardItemView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +61,62 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.installSplashScreen(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ToolbarLayout toolbarLayout = findViewById(R.id.home);
+        mLoadingDialog = new ProgressDialog(this);
+        mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
+        mLoadingDialog.setCancelable(false);
+        Shell.getShell(shell -> {
+            mLoadingDialog.show();
+        });
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(() -> {
+            try {
+                RootChecker.checkRoot();
+                if (RootChecker.isRootAvailable()) {
+                    deleteFilesIfExist();
+                    cp(R.raw.parted, "parted");
+                    cp(R.raw.jq, "jq");
+                    cp(R.raw.slotatwrp, "slota.zip");
+                    cp(R.raw.slotbtwrp, "slotb.zip");
+                    Thread.sleep(500);
+                    Shell.cmd(getResources().openRawResource(R.raw.updatedata)).exec();
+                    mainHandler.post(() -> {
+                        updateStatusCardView();
+                        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                    });
+                } else {
+                    mainHandler.post(() -> {
+                        CardItemView statusCV = findViewById(R.id.status);
+                        statusCV.setSummary(getString(R.string.sudo_access));
+                        Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("MainActivity", "Error executing shell commands", e);
+            } finally {
+                mainHandler.post(() -> mLoadingDialog.dismiss());
+            }
+        });
+        setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
+        setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
+        setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
+        setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
+        setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
+        setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
+
+    }
+
     public static class RootChecker {
+
         public static boolean isRootAvailable() {
             try {
                 // Execute the command to check for root access
@@ -68,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         }
+
     }
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
@@ -99,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
                             }
                         } catch (IOException e) {
                             Log.e("MainActivity", "Error reading file: " + filePath, e);
+
                             slotValue = getString(R.string.unavailable);
                         }
                     } else {
                         slotValue = getString(R.string.unavailable);
                     }
                 }
-
                 slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
             }
         });
@@ -123,47 +184,9 @@ public class MainActivity extends AppCompatActivity {
         return new File(context.getFilesDir(), "slotb.txt").getPath();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.installSplashScreen(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ProgressDialog mLoadingDialog = new ProgressDialog(this);
-        mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
-        mLoadingDialog.setCancelable(false);
-    
-        // Check root
-        if (RootChecker.isRootAvailable()) {
-            Shell.getShell(shell -> {});
-            updateStatusCardView();
-            executorService.execute(() -> {
-                try {
-                    cp(R.raw.parted, "parted");
-                    cp(R.raw.jq, "jq");
-                    cp(R.raw.slotatwrp, "slota.zip");
-                    cp(R.raw.slotbtwrp, "slotb.zip");
 
-                    // Update UI with the latest values
-                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                } catch (Exception e) {
-                    Log.e("MainActivity", "Error executing shell commands", e);
-                }
-            });
-        } else {
-            CardView statusCV = findViewById(R.id.status);
-            statusCV.setSummaryText(getString(R.string.sudo_access));
-            Log.e("MainActivity", "No root! Proceeding in safe mode" );
-        }
+    private ProgressDialog mLoadingDialog;
 
-        // Perform normal tasks
-        setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
-        setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
-        setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
-        setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
-        setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
-        setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
-    }
 
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
@@ -184,8 +207,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private boolean notInstalled = false;
     private void updateStatusCardView() {
-        Shell.cmd(getResources().openRawResource(R.raw.updatedata)).exec();
         File statusFile = new File(getStatusFilePath(this));
         String textToDisplay;
 
@@ -195,6 +218,9 @@ public class MainActivity extends AppCompatActivity {
                 String line;
 
                 while ((line = reader.readLine()) != null) {
+                    if (line.contains("##NOT_INSTALLED##")) {
+                        notInstalled = true;
+                    }
                     line = line.replace("##NOT_INSTALLED##", getString(R.string.not_installed))
                             .replace("##INSTALLED_V5##", getString(R.string.installed_v5))
                             .replace("##INSTALLED_V4##", getString(R.string.installed_v4))
@@ -226,12 +252,12 @@ public class MainActivity extends AppCompatActivity {
             textToDisplay = getString(R.string.sudo_access);  // Placeholder if file does not exist
         }
 
-        CardView statusCardView = findViewById(R.id.status);
-        statusCardView.setSummaryText(textToDisplay);
+        CardItemView statusCardView = findViewById(R.id.status);
+        statusCardView.setSummary(textToDisplay);
     }
 
     private void setupCardViewWithConfirmation(int cardViewId, int promptResId, String scriptFile) {
-        CardView cardView = findViewById(cardViewId);
+        CardItemView cardView = findViewById(cardViewId);
         cardView.setOnClickListener(v -> showConfirmationDialog(promptResId, scriptFile));
     }
 
@@ -249,7 +275,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showConfirmationDialog(int promptResId, String scriptFile) {
-        if (!RootChecker.isRootAvailable()) {
+        if (notInstalled) {
+            // Show a dialog informing the user about missing SU access
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.not_installed_title)) // Use a title like "Permission Denied"
+                    .setMessage(getString(R.string.not_installed_diag)) // Message about needing superuser access
+                    .setPositiveButton(getString(R.string.dialog_ok), null) // OK button that does nothing
+                    .create()
+                    .show();
+            return; // Exit the method since SU access is required
+        } else if (!RootChecker.isRootAvailable()) {
             // Show a dialog informing the user about missing SU access
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.sudo_access_title)) // Use a title like "Permission Denied"

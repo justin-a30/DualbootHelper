@@ -2,6 +2,12 @@ package com.david42069.dualboothelper;
 
 // from OneUI Sample app. Credits to everyone who contributed in making the app.
 
+import static androidx.appcompat.util.SeslRoundedCorner.ROUNDED_CORNER_TOP_LEFT;
+import static androidx.appcompat.util.SeslRoundedCorner.ROUNDED_CORNER_TOP_RIGHT;
+
+import static dev.oneuiproject.oneui.ktx.ViewKt.semSetRoundedCornerColor;
+import static dev.oneuiproject.oneui.ktx.ViewKt.semSetRoundedCorners;
+
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,21 +23,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.david42069.dualboothelper.databinding.ActivityAboutBinding;
 import com.david42069.dualboothelper.databinding.ActivityAboutContentBinding;
 
-import dev.oneuiproject.oneui.utils.ViewUtils;
-import dev.oneuiproject.oneui.utils.internal.ToolbarLayoutUtils;
+import dev.oneuiproject.oneui.utils.DeviceLayoutUtil;
 import dev.oneuiproject.oneui.widget.Toast;
+import dev.oneuiproject.oneui.widget.CardItemView;
 
 public class AboutActivity extends AppCompatActivity
         implements View.OnClickListener {
-    private boolean mEnableBackToHeader;
     private long mLastClickTime;
 
     private ActivityAboutBinding mBinding;
@@ -44,30 +53,43 @@ public class AboutActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         mBinding = ActivityAboutBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+
+        if (Build.VERSION.SDK_INT >= 30 && !getWindow().getDecorView().getFitsSystemWindows()) {
+            mBinding.getRoot().setOnApplyWindowInsetsListener((v, insets) -> {
+                Insets systemBarsInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
+                        .getInsets(WindowInsetsCompat.Type.systemBars());
+                mBinding.getRoot().setPadding(systemBarsInsets.left, systemBarsInsets.top,
+                        systemBarsInsets.right, systemBarsInsets.bottom);
+                return insets;
+            });
+        }
+
         mBottomContent = mBinding.aboutBottomContent;
 
         setSupportActionBar(mBinding.aboutToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mBinding.aboutToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mBinding.aboutToolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         resetAppBar(getResources().getConfiguration());
         initContent();
+        initOnBackPressed();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mEnableBackToHeader && mBinding.aboutAppBar.seslIsCollapsed()) {
+
+    private OnBackPressedCallback mBackPressedCallback = new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
             mBinding.aboutAppBar.setExpanded(true);
-        } else {
-            // Fix O memory leak
-            if (Build.VERSION.SDK_INT
-                    == Build.VERSION_CODES.O && isTaskRoot()) {
-                finishAfterTransition();
-            } else {
-                super.onBackPressed();
-            }
         }
+    };
+
+    private void initOnBackPressed() {
+        getOnBackPressedDispatcher().addCallback(this, mBackPressedCallback);
+        mBackPressedCallback.setEnabled(mBinding.aboutAppBar.seslIsCollapsed()
+                && getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE
+                && !isInMultiWindowMode());
     }
 
     @Override
@@ -104,22 +126,18 @@ public class AboutActivity extends AppCompatActivity
 
     @SuppressLint("RestrictedApi")
     private void resetAppBar(Configuration config) {
-        ToolbarLayoutUtils.hideStatusBarForLandscape(this, config.orientation);
-        ToolbarLayoutUtils.updateListBothSideMargin(this,
-                mBinding.aboutBottomContainer);
-
         if (config.orientation != Configuration.ORIENTATION_LANDSCAPE
-                && !isInMultiWindowMode()) {
+                && !isInMultiWindowMode() || DeviceLayoutUtil.INSTANCE.isTabletLayoutOrDesktop(this)) {
             mBinding.aboutAppBar.seslSetCustomHeightProportion(true, 0.5f);
-            mEnableBackToHeader = true;
             mBinding.aboutAppBar.addOnOffsetChangedListener(mAppBarListener);
             mBinding.aboutAppBar.setExpanded(true, false);
+            mBackPressedCallback.setEnabled(true);
             mBinding.aboutSwipeUpContainer.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams lp = mBinding.aboutSwipeUpContainer.getLayoutParams();
             lp.height = getResources().getDisplayMetrics().heightPixels / 2;
         } else {
             mBinding.aboutAppBar.setExpanded(false, false);
-            mEnableBackToHeader = false;
+            mBackPressedCallback.setEnabled(false);
             mBinding.aboutAppBar.seslSetCustomHeightProportion(true, 0);
             mBinding.aboutAppBar.removeOnOffsetChangedListener(mAppBarListener);
             mBinding.aboutBottomContainer.setAlpha(1f);
@@ -129,12 +147,10 @@ public class AboutActivity extends AppCompatActivity
     }
 
     private void initContent() {
-        ViewUtils.semSetRoundedCorners(
-                mBinding.aboutBottomContent.getRoot(),
-                ViewUtils.SEM_ROUNDED_CORNER_TOP_LEFT | ViewUtils.SEM_ROUNDED_CORNER_TOP_RIGHT);
-        ViewUtils.semSetRoundedCornerColor(mBinding.aboutBottomContent.getRoot(),
-                ViewUtils.SEM_ROUNDED_CORNER_TOP_LEFT | ViewUtils.SEM_ROUNDED_CORNER_TOP_RIGHT,
-                getColor(R.color.oui_round_and_bgcolor));
+        semSetRoundedCorners(mBinding.aboutBottomContent.getRoot(), ROUNDED_CORNER_TOP_LEFT | ROUNDED_CORNER_TOP_RIGHT);
+        semSetRoundedCornerColor(mBinding.aboutBottomContent.getRoot(),
+                ROUNDED_CORNER_TOP_LEFT | ROUNDED_CORNER_TOP_RIGHT,
+                ContextCompat.getColor(this, dev.oneuiproject.oneui.design.R.color.oui_round_and_bgcolor));
 
         Drawable appIcon = getDrawable(R.drawable.ic_launcher);
         mBinding.aboutHeaderAppIcon.setImageDrawable(appIcon);
@@ -148,36 +164,36 @@ public class AboutActivity extends AppCompatActivity
         mBinding.aboutHeaderTelegram.setOnClickListener(this);
         TooltipCompat.setTooltipText(mBinding.aboutHeaderTelegram, "Telegram");
 
-        mBottomContent.aboutBottomDevDavid.setOnClickListener(this);
-        mBottomContent.aboutBottomDevBob.setOnClickListener(this);
-
         mBottomContent.aboutBottomDevYann.setOnClickListener(this);
+        mBottomContent.aboutBottomDevTribalfs.setOnClickListener(this);
         mBottomContent.aboutBottomDevSalvo.setOnClickListener(this);
+        mBottomContent.aboutBottomDevBob.setOnClickListener(this);
+        mBottomContent.aboutBottomDevDavid.setOnClickListener(this);
 
-        mBottomContent.aboutBottomGnu.setOnClickListener(this);
         mBottomContent.aboutBottomOssApache.setOnClickListener(this);
         mBottomContent.aboutBottomOssMit.setOnClickListener(this);
+
+        mBottomContent.aboutTranslate.setOnClickListener(this);
         mBottomContent.aboutDonate.setOnClickListener(this);
         mBottomContent.aboutXda.setOnClickListener(this);
-        mBottomContent.aboutTranslate.setOnClickListener(this);
-
         mBottomContent.aboutBottomRelativeOuip.setOnClickListener(this);
     }
 
     private void setBottomContentEnabled(boolean enabled) {
         mBinding.aboutHeaderGithub.setEnabled(!enabled);
         mBinding.aboutHeaderTelegram.setEnabled(!enabled);
-        mBottomContent.aboutBottomDevDavid.setEnabled(enabled);
-        mBottomContent.aboutBottomDevBob.setEnabled(enabled);
         mBottomContent.aboutBottomDevYann.setEnabled(enabled);
+        mBottomContent.aboutBottomDevTribalfs.setEnabled(enabled);
         mBottomContent.aboutBottomDevSalvo.setEnabled(enabled);
-        mBottomContent.aboutBottomGnu.setEnabled(enabled);
         mBottomContent.aboutBottomOssApache.setEnabled(enabled);
         mBottomContent.aboutBottomOssMit.setEnabled(enabled);
+        mBottomContent.aboutTranslate.setEnabled(enabled);
         mBottomContent.aboutDonate.setEnabled(enabled);
         mBottomContent.aboutXda.setEnabled(enabled);
-        mBottomContent.aboutTranslate.setEnabled(enabled);
         mBottomContent.aboutBottomRelativeOuip.setEnabled(enabled);
+        mBottomContent.aboutBottomDevBob.setEnabled(enabled);
+        mBottomContent.aboutBottomDevDavid.setEnabled(enabled);
+
     }
 
     @Override
@@ -195,6 +211,8 @@ public class AboutActivity extends AppCompatActivity
                 url = "https://github.com/justin-a30";
             } else if (v.getId() == mBottomContent.aboutBottomDevYann.getId()) {
                 url = "https://github.com/Yanndroid";
+            } else if (v.getId() == mBottomContent.aboutBottomDevTribalfs.getId()) {
+                url = "https://github.com/tribalfs";
             } else if (v.getId() == mBottomContent.aboutBottomDevSalvo.getId()) {
                 url = "https://github.com/salvogiangri";
             } else if (v.getId() == mBottomContent.aboutBottomGnu.getId()) {
@@ -264,6 +282,8 @@ public class AboutActivity extends AppCompatActivity
             }
 
             mBinding.aboutBottomContainer.setAlpha(bottomAlpha / 255);
+
+            mBackPressedCallback.setEnabled(appBarLayout.getTotalScrollRange() + verticalOffset == 0);
         }
     }
 }

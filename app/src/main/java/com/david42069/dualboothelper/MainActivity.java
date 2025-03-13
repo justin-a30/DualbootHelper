@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
-
         // Update slot cards to reflect any changes
         updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
         updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
@@ -57,13 +54,18 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
-
+    
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
         setContentView(R.layout.activity_main);
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
+        ProgressDialog mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         mLoadingDialog.setCancelable(false);
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-
+                Handler mainHandler = new Handler(Looper.getMainLooper());
         executorService.execute(() -> {
             try {
                 if (RootChecker.isRootAvailable()) {
@@ -83,18 +85,22 @@ public class MainActivity extends AppCompatActivity {
                     cp(R.raw.slotbtwrp, "slotb.zip");
                     Thread.sleep(500);
                     Shell.cmd(getResources().openRawResource(R.raw.updatedata)).exec();
-                    updateStatusCardView();
-                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                    mainHandler.post(() -> {
+                        updateStatusCardView();
+                        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                    });
                 } else {
-                    CardItemView statusCV = findViewById(R.id.status);
-                    statusCV.setSummary(getString(R.string.sudo_access));
-                    Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    mainHandler.post(() -> {
+                        CardItemView statusCV = findViewById(R.id.status);
+                        statusCV.setSummary(getString(R.string.sudo_access));
+                        Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    });
                 }
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
             } finally {
-                mLoadingDialog.dismiss();
+                mainHandler.post(() -> mLoadingDialog.dismiss());
             }
         });
         setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
@@ -107,9 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class RootChecker {
-
         public static boolean isRootAvailable() {
-
             try {
                 // Execute the command to check for root access
                 String output = Shell.cmd("id -u").exec().getOut().get(0);
@@ -130,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 getSlotAFilePath(this),
                 getSlotBFilePath(this)
         };
-
         for (String path : filePaths) {
             File file = new File(path);
             if (file.exists()) {
@@ -196,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
     public static String getSlotBFilePath(Context context) {
         return new File(context.getFilesDir(), "slotb.txt").getPath();
     }
-
-    private ProgressDialog mLoadingDialog;
 
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {

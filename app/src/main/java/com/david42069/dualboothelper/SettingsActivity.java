@@ -15,7 +15,6 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.topjohnwu.superuser.Shell;
-
 import dev.oneuiproject.oneui.dialog.ProgressDialog;
 import dev.oneuiproject.oneui.layout.ToolbarLayout;
 
@@ -35,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ToolbarLayout toolbarLayout = findViewById(R.id.settings);
-        toolbarLayout.setNavigationButtonAsBack();
+        toolbarLayout.setShowNavigationButtonAsBack(true);
         // I suspect that you forget to add this
         Shell.getShell(shell -> {});
 

@@ -23,22 +23,22 @@
             android:background="@color/oui_background_color"
             android:orientation="vertical">
 
-            <dev.oneuiproject.oneui.widget.CardView
+            <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_bottom_dev_david"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_david"
-                app:TitleText="David42069"
-                app:SummaryText="@string/david_desc" />
+                app:icon="@drawable/about_page_avatar_david"
+                app:title="David42069"
+                app:showTopDivider="false"
+                app:summary="@string/david_desc" />
 
-            <dev.oneuiproject.oneui.widget.CardView
+            <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_bottom_dev_bob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_bob"
-                app:TitleText="Bobert"
-                app:SummaryText="@string/bob_desc"
-                app:isDividerViewVisible="true" />
+                app:icon="@drawable/about_page_avatar_bob"
+                app:title="Bobert"
+                app:summary="@string/bob_desc" />
 
         </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -53,20 +53,27 @@
             android:background="@color/oui_background_color"
             android:orientation="vertical">
 
-            <dev.oneuiproject.oneui.widget.CardView
+            <dev.oneuiproject.oneui.widget.CardItemView
+                android:id="@+id/about_bottom_dev_tribalfs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/about_page_avatar_tribalfs"
+                app:title="Tribalfs"
+                app:showTopDivider="false" />
+
+            <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_bottom_dev_yann"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_yann"
-                app:TitleText="Yanndroid" />
+                app:icon="@drawable/about_page_avatar_yann"
+                app:title="Yanndroid" />
 
-            <dev.oneuiproject.oneui.widget.CardView
+            <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_bottom_dev_salvo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_salvo"
-                app:TitleText="Salvo Giangreco"
-                app:isDividerViewVisible="true" />
+                app:icon="@drawable/about_page_avatar_salvo"
+                app:title="Salvo Giangreco" />
 
         </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -82,28 +89,27 @@
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
-        <dev.oneuiproject.oneui.widget.CardView
+        <dev.oneuiproject.oneui.widget.CardItemView
             android:id="@+id/about_bottom_gnu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:TitleText="@string/gnu_lic"
-            app:SummaryText="DualbootHelper" />
+            app:title="@string/gnu_lic"
+            app:summary="DualbootHelper"
+            app:showTopDivider="false" />
 
-        <dev.oneuiproject.oneui.widget.CardView
+        <dev.oneuiproject.oneui.widget.CardItemView
             android:id="@+id/about_bottom_oss_apache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:TitleText="@string/apache_lic"
-            app:SummaryText="androidx  •  material-components  •  lottie"
-            app:isDividerViewVisible="true" />
+            app:title="@string/apache_lic"
+            app:summary="androidx  •  material-components-android • sesl-androidx  •  sesl-material-components-android  •  lottie" />
 
-        <dev.oneuiproject.oneui.widget.CardView
+        <dev.oneuiproject.oneui.widget.CardItemView
             android:id="@+id/about_bottom_oss_mit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:TitleText="@string/mit_lic"
-            app:SummaryText="oneui-core  •  oneui-design"
-            app:isDividerViewVisible="true" />
+            app:title="@string/mit_lic"
+            app:summary="oneui-core  •  oneui-design" />
 
     </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -114,12 +120,13 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
-            <dev.oneuiproject.oneui.widget.CardView
+            <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_translate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:TitleText="@string/translation"
-                app:SummaryText="Crowdin" />
+                app:title="@string/translation"
+                app:summary="Crowdin"
+                app:showTopDivider="false" />
 
         </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 

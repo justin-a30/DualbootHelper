@@ -25,6 +25,8 @@
     <string name="emmc_mmcblk0">Dispozitivul folosește EMMC (mmcblk0)</string>
     <string name="sudo_access">Te rog acordă acces de superutilizator pentru a putea extrage informații despre dispozitiv</string>
     <string name="sudo_access_title">Fară acces de superutilizator, ești sigur că ai root?:(</string>
+    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
+    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
     <!-- Quick action layout strings -->
     <string name="qact">Quick action</string>
     <string name="slota_qact">Acțiuni în Slotul A</string>

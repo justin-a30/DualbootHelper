@@ -25,6 +25,8 @@
     <string name="emmc_mmcblk0">Thiết bị sử dụng eMMC (mmcblk0)</string>
     <string name="sudo_access">Hãy trao quyền quản trị (superuser) để lấy thông tin về thiết bị</string>
     <string name="sudo_access_title">Không có quyền truy cập SU, hay bạn chưa root? :(</string>
+    <string name="not_installed_diag">Dualboot của David chưa được cài đặt. Hãy chắc chắn rằng bạn đã cài nó một cách chính xác. Tham khảo trên nhóm Telegram/Diễn đàn XDA để biết thêm thông tin và hỗ trợ.</string>
+    <string name="not_installed_title">Cỏ vẻ như bạn chưa cài Dualboot của David. :(</string>
     <!-- Quick action layout strings -->
     <string name="qact">Hành động nhanh</string>
     <string name="slota_qact">Hành động khu A</string>

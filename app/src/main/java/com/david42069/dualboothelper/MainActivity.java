@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.os.Handler;
+import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
     
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {

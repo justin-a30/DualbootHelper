@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
         ProgressDialog mLoadingDialog = new ProgressDialog(this);
-        mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         mLoadingDialog.setCancelable(false);
         Shell.getShell(shell -> {

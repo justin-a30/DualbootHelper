@@ -2,10 +2,11 @@ name: Android CI
 
 on:
   push:
-    branches: [ "nhglong-fixes2" ]
+
+    branches: [ "sesl6-fix" ]
 
   pull_request:
-    branches: [ "nhglong-fixes2" ]
+    branches: [ "sesl6-fix" ]
 
 jobs:
   build:
@@ -28,6 +29,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -44,7 +46,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         COMMIT_URL: ${{ github.event.head_commit.url }}
         RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        TITLE: Dualboot Helper
+        TITLE: Dualboot Helper OneUI 6 SESL Edition
       run: |
         if [ ! -z "${{ secrets.CHAT_ID }}" ] && [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then
           export VERSION=$(git rev-list --count HEAD)

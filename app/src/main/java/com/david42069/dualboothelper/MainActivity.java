@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
         executorService.execute(() -> {
             try {
-                RootChecker.checkRoot();
                 if (RootChecker.isRootAvailable()) {
                     deleteFilesIfExist();
                     cp(R.raw.parted, "parted");
@@ -84,17 +83,13 @@ public class MainActivity extends AppCompatActivity {
                     cp(R.raw.slotbtwrp, "slotb.zip");
                     Thread.sleep(500);
                     Shell.cmd(getResources().openRawResource(R.raw.updatedata)).exec();
-                    mainHandler.post(() -> {
-                        updateStatusCardView();
-                        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                    });
+                    updateStatusCardView();
+                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
                 } else {
-                    mainHandler.post(() -> {
-                        CardItemView statusCV = findViewById(R.id.status);
-                        statusCV.setSummary(getString(R.string.sudo_access));
-                        Log.e("MainActivity", "No root! Proceeding in safe mode");
-                    });
+                    CardItemView statusCV = findViewById(R.id.status);
+                    statusCV.setSummary(getString(R.string.sudo_access));
+                    Log.e("MainActivity", "No root! Proceeding in safe mode");
                 }
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);

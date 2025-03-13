@@ -28,10 +28,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import dev.oneuiproject.oneui.dialog.ProgressDialog;
+import dev.oneuiproject.oneui.layout.ToolbarLayout;
 import dev.oneuiproject.oneui.utils.ActivityUtils;
-
 import androidx.appcompat.app.AlertDialog;
 
 import dev.oneuiproject.oneui.widget.CardItemView;
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler mainHandler = new Handler(Looper.getMainLooper());
 
         executorService.execute(() -> {
             try {
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
             } finally {
-                mainHandler.post(() -> mLoadingDialog.dismiss());
+                mLoadingDialog.dismiss();
             }
         });
         setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
@@ -130,6 +128,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void deleteFilesIfExist() {
+        // Define the file paths using the current context
+        String[] filePaths = {
+                getStatusFilePath(this),
+                getSlotAFilePath(this),
+                getSlotBFilePath(this)
+        };
+
+        for (String path : filePaths) {
+            File file = new File(path);
+            if (file.exists()) {
+                boolean deleted = file.delete();
+                if (deleted) {
+                    Log.d("MainActivity", "Deleted file: " + path);
+                } else {
+                    Log.e("MainActivity", "Failed to delete file: " + path);
+                }
+            }
+        }
+    }
+    
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
 
         (sharedPreferences, key) -> {
@@ -142,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
         runOnUiThread(() -> {
-            CardView slotCardView = findViewById(cardViewId);
+            CardItemView slotCardView = findViewById(cardViewId);
             if (slotCardView != null) {
                 String slotValue;
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

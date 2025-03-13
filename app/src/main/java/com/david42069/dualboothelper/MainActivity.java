@@ -1,52 +1,51 @@
 package com.david42069.dualboothelper;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import dev.oneuiproject.oneui.dialog.ProgressDialog;
-import dev.oneuiproject.oneui.layout.ToolbarLayout;
-import dev.oneuiproject.oneui.utils.ActivityUtils;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import android.content.SharedPreferences;
-
 import androidx.core.splashscreen.SplashScreen;
 import androidx.preference.PreferenceManager;
+
 import com.topjohnwu.superuser.Shell;
 
-import android.util.Log;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileReader;
-import android.view.View;
-import android.content.Context;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import dev.oneuiproject.oneui.dialog.ProgressDialog;
+import dev.oneuiproject.oneui.utils.ActivityUtils;
 
 import androidx.appcompat.app.AlertDialog;
-
-import android.os.CountDownTimer;
-import android.view.LayoutInflater;
 
 import dev.oneuiproject.oneui.widget.CardItemView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
         // Update slot cards to reflect any changes
@@ -116,17 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static class RootChecker {
 
-        private static boolean isRootAvailable = false;
-
         public static boolean isRootAvailable() {
-            return isRootAvailable;
-        }
 
-        public static void checkRoot() {
-            // Check for root access
-            isRootAvailable = checkForRoot();
-        }
-        private static boolean checkForRoot() {
             try {
                 // Execute the command to check for root access
                 String output = Shell.cmd("id -u").exec().getOut().get(0);
@@ -141,41 +131,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
-            (sharedPreferences, key) -> {
-                if (key.equals("slotakey")) {
-                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                } else if (key.equals("slotbkey")) {
-                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                }
-            };
-    private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
-        CardItemView slotCardView = findViewById(cardViewId);
-        if (slotCardView != null) {
-            String slotValue;
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
 
-            if (isCustomizeSlotNameOn) {
-                slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
-            } else {
-                File file = new File(filePath);
-                if (file.exists()) {
-                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                        slotValue = reader.readLine();
-                        if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+        (sharedPreferences, key) -> {
+            if (key.equals("slotakey")) {
+                updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+            } else if (key.equals("slotbkey")) {
+                updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+            }
+        };
+
+    private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
+        runOnUiThread(() -> {
+            CardView slotCardView = findViewById(cardViewId);
+            if (slotCardView != null) {
+                String slotValue;
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
+
+                if (isCustomizeSlotNameOn) {
+                    slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
+                } else {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                            slotValue = reader.readLine();
+                            if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                                slotValue = getString(R.string.unavailable);
+                            }
+                        } catch (IOException e) {
+                            Log.e("MainActivity", "Error reading file: " + filePath, e);
                             slotValue = getString(R.string.unavailable);
                         }
-                    } catch (IOException e) {
-                        Log.e("MainActivity", "Error reading file: " + filePath, e);
+                    } else {
                         slotValue = getString(R.string.unavailable);
                     }
-                } else {
-                    slotValue = getString(R.string.unavailable);
                 }
+                slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
             }
-
-            slotCardView.setSummary(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
-        }
+        });
     }
 
     private static String getStatusFilePath(Context context) {
@@ -196,27 +189,6 @@ public class MainActivity extends AppCompatActivity {
     private String getPreferenceValue(String key, String fallback) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         return sharedPreferences.getString(key, fallback);
-    }
-
-    private void deleteFilesIfExist() {
-        // Define the file paths using the current context
-        String[] filePaths = {
-                getStatusFilePath(this),
-                getSlotAFilePath(this),
-                getSlotBFilePath(this)
-        };
-
-        for (String path : filePaths) {
-            File file = new File(path);
-            if (file.exists()) {
-                boolean deleted = file.delete();
-                if (deleted) {
-                    Log.d("MainActivity", "Deleted file: " + path);
-                } else {
-                    Log.e("MainActivity", "Failed to delete file: " + path);
-                }
-            }
-        }
     }
 
     private void cp(int resourceId, String fileName) {
@@ -290,8 +262,8 @@ public class MainActivity extends AppCompatActivity {
         new CountDownTimer(100,100){
             @Override
             public void onTick(long p1){
-
             }
+
             @Override
             public void onFinish(){
                 executeShellCommand(scriptFile);
@@ -300,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showConfirmationDialog(int promptResId, String scriptFile) {
-
         if (notInstalled) {
             // Show a dialog informing the user about missing SU access
             new AlertDialog.Builder(this)
@@ -351,8 +322,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-
     private void executeShellCommand(String scriptFile) {
         executorService.execute(() -> {
             try {
@@ -391,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

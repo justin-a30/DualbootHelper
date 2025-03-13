@@ -2,10 +2,11 @@ name: Android CI
 
 on:
   push:
-    branches: [ "sesl6" ]
+
+    branches: [ "sesl6-fix" ]
 
   pull_request:
-    branches: [ "sesl6" ]
+    branches: [ "sesl6-fix" ]
 
 jobs:
   build:

@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                         slotValue = getString(R.string.unavailable);
                     }
                 }
-                slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
+                slotCardView.setSummary(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
             }
         });
     }

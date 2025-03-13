@@ -61,25 +61,24 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <dev.oneuiproject.oneui.widget.CardView
+                        <dev.oneuiproject.oneui.widget.CardItemView
                             android:id="@+id/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:TitleText="@string/dbinf"/>
+                            app:title="@string/dbinf"
+                            app:showTopDivider="false"/>
 
-                        <dev.oneuiproject.oneui.widget.CardView
+                        <dev.oneuiproject.oneui.widget.CardItemView
                             android:id="@+id/slota_txt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:TitleText="@string/slota_os"
-                            app:isDividerViewVisible="true" />
+                            app:title="@string/slota_os" />
 
-                        <dev.oneuiproject.oneui.widget.CardView
+                        <dev.oneuiproject.oneui.widget.CardItemView
                             android:id="@+id/slotb_txt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:TitleText="@string/slotb_os"
-                            app:isDividerViewVisible="true" />
+                            app:title="@string/slotb_os" />
 
                     </LinearLayout>
 
@@ -98,24 +97,24 @@
                 android:background="@color/oui_background_color"
                 android:orientation="vertical">
 
-                <dev.oneuiproject.oneui.widget.CardView
+                <dev.oneuiproject.oneui.widget.CardItemView
                     android:id="@+id/reboot_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:TitleText="@string/reboot_a"
-                    app:IconDrawable="@drawable/ic_oui_restart"/>
+                    app:title="@string/reboot_a"
+                    app:icon="@drawable/ic_oui_restart"
+                    app:showTopDivider="false" />
 
-                <dev.oneuiproject.oneui.widget.CardView
+                <dev.oneuiproject.oneui.widget.CardItemView
                     android:id="@+id/rec_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:TitleText="@string/recovery_a"
-                    app:IconDrawable="@drawable/ic_oui_lightning"
-                    app:isDividerViewVisible="true" />
+                    app:title="@string/recovery_a"
+                    app:icon="@drawable/ic_oui_lightning" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -130,24 +129,24 @@
                 android:background="@color/oui_background_color"
                 android:orientation="vertical">
 
-                <dev.oneuiproject.oneui.widget.CardView
+                <dev.oneuiproject.oneui.widget.CardItemView
                     android:id="@+id/reboot_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:TitleText="@string/reboot_b"
-                    app:IconDrawable="@drawable/ic_oui_restart"/>
+                    app:title="@string/reboot_b"
+                    app:icon="@drawable/ic_oui_restart"
+                    app:showTopDivider="false" />
 
-                <dev.oneuiproject.oneui.widget.CardView
+                <dev.oneuiproject.oneui.widget.CardItemView
                     android:id="@+id/rec_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:TitleText="@string/recovery_b"
-                    app:IconDrawable="@drawable/ic_oui_lightning"
-                    app:isDividerViewVisible="true" />
+                    app:title="@string/recovery_b"
+                    app:icon="@drawable/ic_oui_lightning" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -162,24 +161,24 @@
                 android:background="@color/oui_background_color"
                 android:orientation="vertical">
 
-                <dev.oneuiproject.oneui.widget.CardView
+                <dev.oneuiproject.oneui.widget.CardItemView
                     android:id="@+id/bootloader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:TitleText="@string/dl_mode"
-                    app:IconDrawable="@drawable/ic_oui_save"/>
+                    app:title="@string/dl_mode"
+                    app:icon="@drawable/ic_oui_save"
+                    app:showTopDivider="false" />
 
-                <dev.oneuiproject.oneui.widget.CardView
+                <dev.oneuiproject.oneui.widget.CardItemView
                     android:id="@+id/poweroff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:TitleText="@string/poweroff"
-                    app:IconDrawable="@drawable/ic_oui_power"
-                    app:isDividerViewVisible="true" />
+                    app:title="@string/poweroff"
+                    app:icon="@drawable/ic_oui_power" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 

@@ -25,6 +25,8 @@
     <string name="emmc_mmcblk0">Device uses EMMC (mmcblk0)</string>
     <string name="sudo_access">Please grant superuser access to gather info about the device</string>
     <string name="sudo_access_title">No SU access, or you haven\'t rooted, yet? :(</string>
+    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
+    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
     <!-- Quick action layout strings -->
     <string name="qact">Vinnige aksie</string>
     <string name="slota_qact">Slot A actions</string>

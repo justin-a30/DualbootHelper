@@ -16,7 +16,29 @@ dependencyResolutionManagement {
         mavenLocal()
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven {
+            url = uri("https://maven.pkg.github.com/tribalfs/sesl-androidx")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/tribalfs/sesl-material-components-android")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/tribalfs/oneui-design")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+
     }
 }
-rootProject.name = "Dualboot Helper" /*TODO: change name*/
+rootProject.name = "Dualboot Helper"
 include ':app'

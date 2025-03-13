@@ -29,10 +29,6 @@ import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// main
-import dev.oneuiproject.oneui.dialog.ProgressDialog;
-import dev.oneuiproject.oneui.utils.ActivityUtils;
-// sesl6
 import androidx.appcompat.app.AlertDialog;
 
 import android.os.CountDownTimer;
@@ -169,10 +165,14 @@ public class MainActivity extends AppCompatActivity {
                         if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
                             slotValue = getString(R.string.unavailable);
                         }
-                    } else {
+                    } catch (IOException e) {
+                        Log.e("MainActivity", "Error reading file: " + filePath, e);
                         slotValue = getString(R.string.unavailable);
                     }
+                } else {
+                    slotValue = getString(R.string.unavailable);
                 }
+            }
 
             slotCardView.setSummary(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
         }

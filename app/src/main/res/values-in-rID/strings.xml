@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Basic title and desc -->
-    <string name="customizename">Customize slot\'s name</string>
+    <string name="customizename">Ubah nama slot</string>
     <string name="description">Aplikasi pembantu dualboot</string>
     <string name="settings">Pengaturan</string>
     <string name="about">Tentang aplikasi</string>
@@ -72,8 +72,8 @@
     <!-- Preferences strings-->
     <string name="slota_settings">Nama Slot A</string>
     <string name="slotb_settings">Nama Slot B</string>
-    <string name="add_db_options_to_twrp">Use custom Dualboot TWRP</string>
-    <string name="twrp_desc">Requires TWRP 3.5+ and disabled data encryption</string>
+    <string name="add_db_options_to_twrp">Gunakan TWRP dualboot khusus</string>
+    <string name="twrp_desc">Memerlukan TWRP 3.5+ dan enkripsi data dinonaktifkan</string>
     <string name="general">General</string>
-    <string name="rec_options">Recovery options</string>
+    <string name="rec_options">Opsi recovery</string>
 </resources>

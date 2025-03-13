@@ -6,7 +6,7 @@
 
 ### A companion for Samsung Dualboot
 
-[![Crowdin](https://badges.crowdin.net/dualboothelper/localized.svg)](https://crowdin.com/project/dualboothelper)
+[![Crowdin](https://badges.crowdin.net/dualboothelpe/localized.svg)](https://crowdin.com/project/dualboothelpe)
 
 </div>
 

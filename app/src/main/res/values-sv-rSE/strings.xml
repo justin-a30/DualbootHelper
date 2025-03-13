@@ -1,79 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Basic title and desc -->
-    <string name="customizename">Customize slot\'s name</string>
-    <string name="description">A helper app for dualbooting solution</string>
-    <string name="settings">Settings</string>
-    <string name="about">About this app</string>
-    <string name="translation">Help us translate the app!</string>
+    <string name="customizename">Anpassa platsens namn</string>
+    <string name="description">En hjälpapplikation för uppstart med flera system</string>
+    <string name="settings">Inställningar</string>
+    <string name="about">Om den här appen</string>
+    <string name="translation">Hjälp oss att översätta appen!</string>
     <!-- Information layout strings -->
     <string name="info">Information</string>
     <!-- Placeholder info strings -->
     <string name="dbinf">Status</string>
-    <string name="slota_os">OS on Slot A</string>
-    <string name="slotb_os">OS on Slot B</string>
+    <string name="slota_os">OS i Slot A</string>
+    <string name="slotb_os">OS i Slot B</string>
     <!-- Collected info strings -->
-    <string name="not_installed">Not installed</string>
-    <string name="installed_v5">Installed (V5)</string>
-    <string name="installed_v4">Installed (V4)</string>
-    <string name="unavailable">Unavailable</string>
-    <string name="super_partition">Device uses super partition</string>
-    <string name="normal_naming">Device uses normal naming partitions</string>
-    <string name="caps_naming">Device uses caps naming partitions</string>
-    <string name="ufs_sda">Device uses UFS (sda)</string>
-    <string name="emmc_sdc">Device uses EMMC (sdc)</string>
-    <string name="emmc_mmcblk0">Device uses EMMC (mmcblk0)</string>
-    <string name="sudo_access">Please grant superuser access to gather info about the device</string>
-    <string name="sudo_access_title">No SU access, or you haven\'t rooted, yet? :(</string>
-    <string name="not_installed_diag">David\'s Dualboot hasn\'t installed. Make sure you\'ve installed properly. Refer to Telegram group/XDA Forums for more information and supports.</string>
-    <string name="not_installed_title">Looks like you haven\'t installed David\'s Dualboot :(</string>
+    <string name="not_installed">Inte installerad</string>
+    <string name="installed_v5">Installerad (V5)</string>
+    <string name="installed_v4">Installerad (V4)</string>
+    <string name="unavailable">Otillgängligt</string>
+    <string name="super_partition">Enheten använder super-partition</string>
+    <string name="normal_naming">Enhet använder normala namn på partitioner</string>
+    <string name="caps_naming">Enheten använder partitioner för huvudnamn</string>
+    <string name="ufs_sda">Enhet använder UFS (sda)</string>
+    <string name="emmc_sdc">Enhet använder EMMC (sdc)</string>
+    <string name="emmc_mmcblk0">Enhet använder EMMC (mmcblk0)</string>
+    <string name="sudo_access">Vänligen ge superanvändare åtkomst för att samla in information om enheten</string>
+    <string name="sudo_access_title">Ingen SU-åtkomst eller har du inte rootat än? :(</string>
     <!-- Quick action layout strings -->
-    <string name="qact">Quick action</string>
-    <string name="slota_qact">Slot A actions</string>
-    <string name="slota_description">Actions available on slot A</string>
-    <string name="slotb_qact">Slot B actions</string>
-    <string name="slotb_description">Actions available on slot B</string>
-    <string name="slota_placeholder">Reboot to slot A, Recovery A</string>
-    <string name="slotb_placeholder">Reboot to slot B, Recovery B</string>
-    <string name="misc_qact">Misc actions</string>
-    <string name="misc_description">Misc actions available</string>
-    <string name="misc_placeholder">Reboot to Download Mode, Power off system</string>
+    <string name="qact">Snabb åtgärd</string>
+    <string name="slota_qact">Plats A åtgärder</string>
+    <string name="slota_description">Åtgärder är tillgängliga på slot A</string>
+    <string name="slotb_qact">Åtgärder för Slot B</string>
+    <string name="slotb_description">Åtgärder är tillgängliga i slot B</string>
+    <string name="slota_placeholder">Starta om till slot A, Återställningsläge A</string>
+    <string name="slotb_placeholder">Starta om till slot B, Återställningsläge B</string>
+    <string name="misc_qact">Diverse åtgärder</string>
+    <string name="misc_description">Diverse åtgärder tillgängliga</string>
+    <string name="misc_placeholder">Starta om till Hämtningsläget, Stäng av systemet</string>
     <!-- Buttons strings -->
-    <string name="reboot_a">Reboot to Slot A</string>
-    <string name="reboot_b">Reboot to Slot B</string>
-    <string name="recovery_a">Reboot to Recovery slot A</string>
-    <string name="recovery_b">Reboot to Recovery slot B</string>
-    <string name="dl_mode">Reboot to Download mode</string>
-    <string name="poweroff">Shut Down the system</string>
+    <string name="reboot_a">Starta om till Slot A</string>
+    <string name="reboot_b">Starta om till Slot B</string>
+    <string name="recovery_a">Starta om till Återställningsläget i slot A</string>
+    <string name="recovery_b">Starta om till Återställningsläget i slot B</string>
+    <string name="dl_mode">Starta om till Hämtningsläget</string>
+    <string name="poweroff">Stäng ner systemet</string>
     <!-- Dialog strings -->
-    <string name="dialog_confirm_title">Confirmation</string>
-    <string name="dialog_confirm">Are you sure?</string>
-    <string name="dialog_yes">Yes</string>
-    <string name="dialog_no">No</string>
+    <string name="dialog_confirm_title">Bekräftelse</string>
+    <string name="dialog_confirm">Är du säker?</string>
+    <string name="dialog_yes">Ja</string>
+    <string name="dialog_no">Nej</string>
     <string name="dialog_ok">OK</string>
-    <string name="reboot_wait">Rebooting. Please wait...</string>
+    <string name="reboot_wait">Startar om. Vänligen vänta...</string>
     <!-- About strings -->
     <!-- Team DB -->
-    <string name="db_dev">Main developers</string>
+    <string name="db_dev">Huvudsakliga utvecklare</string>
     <!-- Our descriptions -->
-    <string name="david_desc">The founder of Dualboot for Samsung</string>
-    <string name="bob_desc">Made this app with OneUI Style</string>
+    <string name="david_desc">Dualboot för Samsung\'s grundare</string>
+    <string name="bob_desc">Gjorde den här appen i stil med OneUI</string>
     <!-- Team OUIP -->
-    <string name="ouip_team">OneUI Project Team</string>
+    <string name="ouip_team">OneUI\'s projektteam</string>
     <!-- License strings -->
-    <string name="os_lic">Open source licenses</string>
-    <string name="gnu_lic">GNU License</string>
-    <string name="apache_lic">Apache License 2.0</string>
-    <string name="mit_lic">MIT License</string>
+    <string name="os_lic">Licenser för öppen källkod</string>
+    <string name="gnu_lic">GNU Licens</string>
+    <string name="apache_lic">Apache-licens 2.0</string>
+    <string name="mit_lic">MIT Licens</string>
     <!-- Links strings-->
-    <string name="links">Useful links</string>
-    <string name="donate">Donate me!</string>
-    <string name="xda_post">XDA post</string>
+    <string name="links">Användbara länkar</string>
+    <string name="donate">Donera mig!</string>
+    <string name="xda_post">XDA inlägg</string>
     <!-- Preferences strings-->
-    <string name="slota_settings">Slot A name</string>
-    <string name="slotb_settings">Slot B name</string>
-    <string name="add_db_options_to_twrp">Use custom Dualboot TWRP</string>
-    <string name="twrp_desc">Requires TWRP 3.5+ and disabled data encryption</string>
-    <string name="general">General</string>
-    <string name="rec_options">Recovery options</string>
+    <string name="slota_settings">Plats A namn</string>
+    <string name="slotb_settings">Plats B namn</string>
+    <string name="add_db_options_to_twrp">Använd anpassad Dualboot TWRP</string>
+    <string name="twrp_desc">Kräver TWRP 3.5+ och inaktiverad datakryptering</string>
+    <string name="general">Allmänt</string>
+    <string name="rec_options">Återställningsalternativ</string>
 </resources>
